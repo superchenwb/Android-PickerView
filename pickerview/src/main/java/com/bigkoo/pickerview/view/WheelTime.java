@@ -285,6 +285,10 @@ public class WheelTime {
         // 日
         wv_day = (WheelView) view.findViewById(R.id.day);
 
+        wv_day.setGravity(gravity);
+        //时
+        wv_hours = (WheelView) view.findViewById(R.id.hour);
+
         if (startYear == endYear && startMonth == endMonth) {
             if (list_big.contains(String.valueOf(month + 1))) {
                 if (endDay > 31) {
@@ -311,6 +315,19 @@ public class WheelTime {
                 }
             }
             wv_day.setCurrentItem(day - startDay);
+            if(startDay == endDay) {
+                wv_hours.setCurrentItem(h - startHour);
+                wv_hours.setAdapter(new NumericWheelAdapter(startHour, endHour));
+            } else if (day == startDay) {
+                wv_hours.setCurrentItem(h - startHour);
+                wv_hours.setAdapter(new NumericWheelAdapter(startHour, DEFAULT_END_HOUR));
+            } else if(day == endDay) {
+                wv_hours.setCurrentItem(h);
+                wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endHour));
+            } else {
+                wv_hours.setCurrentItem(h);
+                wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, DEFAULT_END_HOUR));
+            }
         } else if (year == startYear && month + 1 == startMonth) {
             // 起始日期的天数控制
             if (list_big.contains(String.valueOf(month + 1))) {
@@ -330,6 +347,13 @@ public class WheelTime {
                 }
             }
             wv_day.setCurrentItem(day - startDay);
+            if (day == startDay) {
+                wv_hours.setCurrentItem(h - startHour);
+                wv_hours.setAdapter(new NumericWheelAdapter(startHour, DEFAULT_END_HOUR));
+            } else {
+                wv_hours.setCurrentItem(h);
+                wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, DEFAULT_END_HOUR));
+            }
         } else if (year == endYear && month + 1 == endMonth) {
             // 终止日期的天数控制
             if (list_big.contains(String.valueOf(month + 1))) {
@@ -357,6 +381,13 @@ public class WheelTime {
                 }
             }
             wv_day.setCurrentItem(day - 1);
+            if(day == endDay) {
+                wv_hours.setCurrentItem(h);
+                wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endHour));
+            } else {
+                wv_hours.setCurrentItem(h);
+                wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, DEFAULT_END_HOUR));
+            }
         } else {
             // 判断大小月及是否闰年,用来确定"日"的数据
             if (list_big.contains(String.valueOf(month + 1))) {
@@ -376,21 +407,10 @@ public class WheelTime {
                 }
             }
             wv_day.setCurrentItem(day - 1);
-        }
-
-        wv_day.setGravity(gravity);
-        //时
-        wv_hours = (WheelView) view.findViewById(R.id.hour);
-
-        if (day == startDay) {
-            wv_hours.setAdapter(new NumericWheelAdapter(startHour, DEFAULT_END_HOUR));
-        } else if(day == endDay) {
-            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endHour));
-        } else {
+            wv_hours.setCurrentItem(h);
             wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, DEFAULT_END_HOUR));
         }
 
-        wv_hours.setCurrentItem(h);
         wv_hours.setGravity(gravity);
         //分
         wv_minutes = (WheelView) view.findViewById(R.id.min);
@@ -430,9 +450,9 @@ public class WheelTime {
                         currentDayItem = setReDay(year_num, monthNum, startDay, endDay, list_big, list_little);
                         // 重新设置小时
                         if(startDay == endDay) {
-                            wv_hours.setAdapter(new NumericWheelAdapter(startHour, endDay));
+                            wv_hours.setAdapter(new NumericWheelAdapter(startHour, endHour));
                         } else if(startDay == currentDayItem) {
-                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endDay));
+                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endHour));
                         } else if(endDay == currentDayItem) {
                             wv_hours.setAdapter(new NumericWheelAdapter(startHour, DEFAULT_END_HOUR));
                         } else {
@@ -442,7 +462,7 @@ public class WheelTime {
                         //重新设置日
                         currentDayItem = setReDay(year_num, monthNum, startDay, 31, list_big, list_little);
                         if(startDay == currentDayItem) {
-                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endDay));
+                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endHour));
                         } else if(endDay == currentDayItem) {
                             wv_hours.setAdapter(new NumericWheelAdapter(startHour, DEFAULT_END_HOUR));
                         } else {
@@ -451,7 +471,7 @@ public class WheelTime {
                     } else if (monthNum == endMonth) {
                         currentDayItem = setReDay(year_num, monthNum, 1, endDay, list_big, list_little);
                         if(startDay == currentDayItem) {
-                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endDay));
+                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endHour));
                         } else if(endDay == currentDayItem) {
                             wv_hours.setAdapter(new NumericWheelAdapter(startHour, DEFAULT_END_HOUR));
                         } else {
@@ -460,7 +480,7 @@ public class WheelTime {
                     } else {//重新设置日
                         currentDayItem = setReDay(year_num, monthNum, 1, 31, list_big, list_little);
                         if(startDay == currentDayItem) {
-                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endDay));
+                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endHour));
                         } else if(endDay == currentDayItem) {
                             wv_hours.setAdapter(new NumericWheelAdapter(startHour, DEFAULT_END_HOUR));
                         } else {
@@ -550,9 +570,9 @@ public class WheelTime {
                         day_num = setReDay(currentYear, month_num, startDay, endDay, list_big, list_little);
                         // 重新设置小时
                         if(startDay == endDay) {
-                            wv_hours.setAdapter(new NumericWheelAdapter(startHour, endDay));
+                            wv_hours.setAdapter(new NumericWheelAdapter(startHour, endHour));
                         } else if(startDay == day_num) {
-                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endDay));
+                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endHour));
                         } else if(endDay == day_num) {
                             wv_hours.setAdapter(new NumericWheelAdapter(startHour, DEFAULT_END_HOUR));
                         } else {
@@ -566,7 +586,7 @@ public class WheelTime {
                             wv_day.setCurrentItem(day_num);
                         }
                         if(startDay == day_num) {
-                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endDay));
+                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endHour));
                         } else {
                             wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, DEFAULT_END_HOUR));
                         }
@@ -636,11 +656,11 @@ public class WheelTime {
                     if (startMonth == endMonth) {
                         // 重新设置小时
                         if(startDay == endDay) {
-                            wv_hours.setAdapter(new NumericWheelAdapter(startHour, endDay));
+                            wv_hours.setAdapter(new NumericWheelAdapter(startHour, endHour));
                         } else if(startDay == day_num) {
                             wv_hours.setAdapter(new NumericWheelAdapter(startHour, DEFAULT_END_HOUR));
                         } else if(endDay == day_num) {
-                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endDay));
+                            wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, endHour));
                         } else {
                             wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, DEFAULT_END_HOUR));
                         }
