@@ -914,12 +914,22 @@ public class WheelTime {
            /* int i = wv_month.getCurrentItem() + startMonth;
             System.out.println("i:" + i);*/
             if ((wv_month.getCurrentItem() + startMonth) == startMonth) {
-                sb.append((wv_year.getCurrentItem() + startYear)).append("-")
-                        .append((wv_month.getCurrentItem() + startMonth)).append("-")
-                        .append((wv_day.getCurrentItem() + startDay)).append(" ")
-                        .append(wv_hours.getCurrentItem() + startHour).append(":")
-                        .append(wv_minutes.getCurrentItem()).append(":")
-                        .append(wv_seconds.getCurrentItem());
+
+                if((wv_day.getCurrentItem() + startDay) == startDay) {
+                    sb.append((wv_year.getCurrentItem() + startYear)).append("-")
+                            .append((wv_month.getCurrentItem() + startMonth)).append("-")
+                            .append((wv_day.getCurrentItem() + startDay)).append(" ")
+                            .append(wv_hours.getCurrentItem() + startHour).append(":")
+                            .append(wv_minutes.getCurrentItem()).append(":")
+                            .append(wv_seconds.getCurrentItem());
+                } else {
+                    sb.append((wv_year.getCurrentItem() + startYear)).append("-")
+                            .append((wv_month.getCurrentItem() + startMonth)).append("-")
+                            .append((wv_day.getCurrentItem() + startDay)).append(" ")
+                            .append(wv_hours.getCurrentItem()).append(":")
+                            .append(wv_minutes.getCurrentItem()).append(":")
+                            .append(wv_seconds.getCurrentItem());
+                }
             } else {
                 sb.append((wv_year.getCurrentItem() + startYear)).append("-")
                         .append((wv_month.getCurrentItem() + startMonth)).append("-")
