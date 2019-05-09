@@ -212,6 +212,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setRangDate(startDate, endDate)
                 .setType(new boolean[]{true, true, true, true, false, false})
                 .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
+                .addOnCancelClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.i("pvTime", "onCancelClickListener");
+                    }
+                })
                 .build();
 
         Dialog mDialog = pvTime.getDialog();
@@ -230,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (dialogWindow != null) {
                 dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim);//修改动画样式
                 dialogWindow.setGravity(Gravity.BOTTOM);//改成Bottom,底部显示
+                dialogWindow.setDimAmount(0.1f);
             }
         }
     }
@@ -337,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .isRestoreItem(true)//切换时是否还原，设置默认选中第一项。
                 .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
                 .setLabels("省", "市", "区")
-                .setBackgroundId(0x00000000) //设置外部遮罩颜色
+                .setOutSideColor(0x00000000) //设置外部遮罩颜色
                 .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
                     @Override
                     public void onOptionsSelectChanged(int options1, int options2, int options3) {
@@ -401,6 +408,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 })
                 .isDialog(true)
+                .setOutSideCancelable(false)
                 .build();
 
         pvCustomOptions.setPicker(cardItem);//添加数据
