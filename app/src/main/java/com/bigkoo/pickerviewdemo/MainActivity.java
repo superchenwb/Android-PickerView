@@ -190,9 +190,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initTimePicker() {//Dialog 模式下，在底部弹出
         Calendar startDate = Calendar.getInstance();
-        startDate.set(2019, 2, 1, 4, 50);
+        startDate.set(2019, 2, 1, 4, 10);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(2020, 2, 1, 2, 50);
+        endDate.set(2019, 5, 12, 18, 50);
         Calendar selectedDate = Calendar.getInstance();//系统当前时间
         pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 })
                 .setDate(selectedDate)
                 .setRangDate(startDate, endDate)
-                .setType(new boolean[]{true, true, true, true, false, false})
+                .setType(new boolean[]{true, true, true, true, true, false})
                 .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
                 .addOnCancelClickListener(new View.OnClickListener() {
                     @Override
