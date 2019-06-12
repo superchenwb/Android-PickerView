@@ -296,7 +296,7 @@ public class WheelTime {
         wv_minutes.setAdapter(new NumericWheelAdapter(DEFAULT_START_MINUTE, DEFAULT_END_MINUTE));
         wv_minutes.setGravity(gravity);
 
-        if (startYear == endYear) {//开始年等于终止年
+        if (startYear == endYear) { // 开始年等于终止年
             wv_month.setAdapter(new NumericWheelAdapter(startMonth, endMonth));
             wv_month.setCurrentItem(currentMonth - startMonth);
 
@@ -354,7 +354,7 @@ public class WheelTime {
                 wv_hours.setAdapter(new NumericWheelAdapter(startHour, DEFAULT_END_HOUR));
                 if(h == startHour) {
                     wv_minutes.setCurrentItem(m - startMinute);
-                    wv_hours.setAdapter(new NumericWheelAdapter(startMinute, DEFAULT_END_MINUTE));
+                    wv_minutes.setAdapter(new NumericWheelAdapter(startMinute, DEFAULT_END_MINUTE));
                 }
             }
         } else if (year == endYear && currentMonth == endMonth) {
