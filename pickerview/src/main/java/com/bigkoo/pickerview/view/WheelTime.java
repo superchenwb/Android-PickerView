@@ -316,7 +316,8 @@ public class WheelTime {
 
         if (startYear == endYear && startMonth == endMonth) {
 
-            setReDay(startDay, endDay);
+            setReDay(startDay, endDay, false);
+            currentDay = day;
             wv_day.setCurrentItem(day - startDay);
             if(startDay == endDay) {
                 wv_hours.setCurrentItem(currentHour - startHour);
@@ -347,7 +348,7 @@ public class WheelTime {
                 }
             }
         } else if (year == startYear && currentMonth == startMonth) {
-            setReDay(startDay, 31);
+            setReDay(startDay, 31, false);
             wv_day.setCurrentItem(day - startDay);
             if (day == startDay) {
                 wv_hours.setCurrentItem(h - startHour);
@@ -358,7 +359,7 @@ public class WheelTime {
                 }
             }
         } else if (year == endYear && currentMonth == endMonth) {
-            setReDay(1, endDay);
+            setReDay(1, endDay, false);
             wv_day.setCurrentItem(day - 1);
             if(day == endDay) {
                 wv_hours.setCurrentItem(h);
@@ -369,9 +370,11 @@ public class WheelTime {
                 }
             }
         } else {
-            setReDay(1, 31);
+            setReDay(1, 31, false);
             wv_day.setCurrentItem(day - 1);
         }
+
+
 
         //秒
         wv_seconds = (WheelView) view.findViewById(R.id.second);
@@ -739,11 +742,8 @@ public class WheelTime {
 
     }
 
-
-    private void setReDay(int startD, int endD) {
-        int currentItem = wv_day.getCurrentItem();
-
-//        int maxItem;
+    private void setReDay(int startD, int endD, boolean setCurrentDay) {
+        //        int maxItem;
         if (list_big.contains(String.valueOf(currentMonth))) {
             if (endD > 31) {
                 endD = 31;
@@ -773,15 +773,25 @@ public class WheelTime {
             }
         }
 
-        if (currentItem > wv_day.getAdapter().getItemsCount() - 1) {
-            currentItem = wv_day.getAdapter().getItemsCount() - 1;
-            wv_day.setCurrentItem(currentItem);
+        if(setCurrentDay) {
+            int currentItem = wv_day.getCurrentItem();
+
+            if (currentItem > wv_day.getAdapter().getItemsCount() - 1) {
+                currentItem = wv_day.getAdapter().getItemsCount() - 1;
+                wv_day.setCurrentItem(currentItem);
+            }
+            if(currentYear == startYear && currentMonth == startMonth) {
+                currentDay = currentItem + startD;
+            } else {
+                currentDay = currentItem + 1;
+            }
         }
-        if(currentYear == startYear && currentMonth == startMonth) {
-            currentDay = currentItem + startD;
-        } else {
-            currentDay = currentItem + 1;
-        }
+    }
+
+
+    private void setReDay(int startD, int endD) {
+        setReDay(startD, endD, true);
+
     }
 
 
@@ -909,7 +919,7 @@ public class WheelTime {
             return getLunarTime();
         }
         StringBuilder sb = new StringBuilder();
-//        System.out.println("i:" + currentYear + "-" + currentMonth + "-" + currentDay + " " + currentHour + ":" + wv_minutes.getCurrentItem() + ":" + wv_seconds.getCurrentItem());
+        System.out.println("i:" + currentYear + "-" + currentMonth + "-" + currentDay + " " + currentHour + ":" + wv_minutes.getCurrentItem() + ":" + wv_seconds.getCurrentItem());
         if (currentYear == startYear && currentMonth == startMonth && currentDay == startDay && startHour == currentHour) {
             sb.append(currentYear).append("-")
                     .append(currentMonth).append("-")
