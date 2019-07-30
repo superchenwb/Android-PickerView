@@ -263,7 +263,7 @@ public class WheelTime {
      * @param s
      */
     private void setSolar(int year, final int month, int day, int h, int m, int s) {
-        // System.out.println("year" + year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s);
+         System.out.println("默认时间：" + year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s);
 
         currentYear = year;
         currentMonth = month + 1;
@@ -392,6 +392,7 @@ public class WheelTime {
                 int currentMonthItem = wv_month.getCurrentItem();//记录上一次的item位置
                 int currentHourItem = wv_hours.getCurrentItem(); // 记录上一次的小时的位置
                 int currentMinuteItem = wv_minutes.getCurrentItem(); // 记录上一次的分钟的位置
+
                 if(startYear == endYear) {
                     // 不处理
                 } else if(currentYear == startYear) {   // 当前选择的年份与开始年份相等
@@ -472,10 +473,12 @@ public class WheelTime {
                 } else {                                // 其他
                     //重新设置月份
                     wv_month.setAdapter(new NumericWheelAdapter(1, 12));
+                    currentMonth = currentMonthItem + 1;
                     //重新设置日
                     setReDay(1, 31);
                     // 重新设置小时
                     wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, DEFAULT_END_HOUR));
+                    currentHour = currentHourItem;
                     // 重新设置分钟
                     wv_minutes.setAdapter(new NumericWheelAdapter(DEFAULT_START_MINUTE, DEFAULT_END_MINUTE));
                 }
@@ -597,6 +600,7 @@ public class WheelTime {
                     setReDay(1, 31);
                     // 重新设置小时
                     wv_hours.setAdapter(new NumericWheelAdapter(DEFAULT_START_HOUR, DEFAULT_END_HOUR));
+                    currentHour = currentHourItem;
                     wv_minutes.setAdapter(new NumericWheelAdapter(DEFAULT_START_MINUTE, DEFAULT_END_MINUTE));
                 }
 
@@ -918,7 +922,7 @@ public class WheelTime {
             return getLunarTime();
         }
         StringBuilder sb = new StringBuilder();
-        System.out.println("i:" + currentYear + "-" + currentMonth + "-" + currentDay + " " + currentHour + ":" + wv_minutes.getCurrentItem() + ":" + wv_seconds.getCurrentItem());
+        System.out.println("选择时间:" + currentYear + "-" + currentMonth + "-" + currentDay + " " + currentHour + ":" + wv_minutes.getCurrentItem() + ":" + wv_seconds.getCurrentItem());
         if (currentYear == startYear && currentMonth == startMonth && currentDay == startDay && startHour == currentHour) {
             sb.append(currentYear).append("-")
                     .append(currentMonth).append("-")
@@ -930,7 +934,7 @@ public class WheelTime {
 
         } else {
             sb.append(currentYear).append("-")
-                    .append(wv_month.getCurrentItem() + startMonth).append("-")
+                    .append(currentMonth).append("-")
                     .append(currentDay).append(" ")
                     .append(currentHour).append(":")
                     .append(wv_minutes.getCurrentItem()).append(":")
