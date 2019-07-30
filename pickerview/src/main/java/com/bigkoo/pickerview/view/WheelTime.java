@@ -266,7 +266,7 @@ public class WheelTime {
         // System.out.println("year" + year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s);
 
         currentYear = year;
-        currentMonth = month;
+        currentMonth = month + 1;
         currentDay = day;
         currentHour = h;
         // 年
@@ -298,19 +298,18 @@ public class WheelTime {
 
         if (startYear == endYear) { // 开始年等于终止年
             wv_month.setAdapter(new NumericWheelAdapter(startMonth, endMonth));
-            wv_month.setCurrentItem(currentMonth + 1 - startMonth);
-
+            wv_month.setCurrentItem(currentMonth - startMonth);
         } else if (year == startYear) {
             //起始日期的月份控制
             wv_month.setAdapter(new NumericWheelAdapter(startMonth, 12));
-            wv_month.setCurrentItem(currentMonth + 1 - startMonth);
+            wv_month.setCurrentItem(currentMonth - startMonth);
         } else if (year == endYear) {
             //终止日期的月份控制
             wv_month.setAdapter(new NumericWheelAdapter(1, endMonth));
-            wv_month.setCurrentItem(currentMonth);
+            wv_month.setCurrentItem(currentMonth - 1);
         } else {
             wv_month.setAdapter(new NumericWheelAdapter(1, 12));
-            wv_month.setCurrentItem(currentMonth);
+            wv_month.setCurrentItem(currentMonth - 1);
         }
 
 
@@ -931,7 +930,7 @@ public class WheelTime {
 
         } else {
             sb.append(currentYear).append("-")
-                    .append(currentMonth).append("-")
+                    .append(wv_month.getCurrentItem() + startMonth).append("-")
                     .append(currentDay).append(" ")
                     .append(currentHour).append(":")
                     .append(wv_minutes.getCurrentItem()).append(":")
