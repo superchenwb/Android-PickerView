@@ -119,7 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Calendar startDate = Calendar.getInstance();
         startDate.set(2014, 1, 23);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(2069, 2, 28);
+//        endDate.set(2069, 2, 28);
+        endDate.setTimeInMillis(1564453340488L);
         //时间选择器 ，自定义布局
         pvCustomLunar = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
@@ -194,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Calendar endDate = Calendar.getInstance();
         endDate.set(2019, 9, 12, 18, 50);
         Calendar selectedDate = Calendar.getInstance();//系统当前时间
+        selectedDate.setTimeInMillis(1569772800000L);
         pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {

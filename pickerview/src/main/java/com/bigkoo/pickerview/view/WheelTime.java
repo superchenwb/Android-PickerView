@@ -91,9 +91,9 @@ public class WheelTime {
         return isLunarCalendar;
     }
 
-    public void setPicker(int year, int month, int day) {
-        this.setPicker(year, month, day, 0, 0, 0);
-    }
+//    public void setPicker(int year, int month, int day) {
+//        this.setPicker(year, month, day, 0, 0, 0);
+//    }
 
     public void setPicker(int year, final int month, int day, int h, int m, int s) {
         if (isLunarCalendar) {
@@ -263,10 +263,10 @@ public class WheelTime {
      * @param s
      */
     private void setSolar(int year, final int month, int day, int h, int m, int s) {
-        System.out.println("year" + year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s);
+        // System.out.println("year" + year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s);
 
         currentYear = year;
-        currentMonth = month + 1;
+        currentMonth = month;
         currentDay = day;
         currentHour = h;
         // 年
@@ -298,12 +298,12 @@ public class WheelTime {
 
         if (startYear == endYear) { // 开始年等于终止年
             wv_month.setAdapter(new NumericWheelAdapter(startMonth, endMonth));
-            wv_month.setCurrentItem(currentMonth - startMonth);
+            wv_month.setCurrentItem(currentMonth + 1 - startMonth);
 
         } else if (year == startYear) {
             //起始日期的月份控制
             wv_month.setAdapter(new NumericWheelAdapter(startMonth, 12));
-            wv_month.setCurrentItem(currentMonth - startMonth);
+            wv_month.setCurrentItem(currentMonth + 1 - startMonth);
         } else if (year == endYear) {
             //终止日期的月份控制
             wv_month.setAdapter(new NumericWheelAdapter(1, endMonth));
